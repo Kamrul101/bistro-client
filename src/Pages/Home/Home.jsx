@@ -3,14 +3,20 @@ import Banner from '../Banner/Banner';
 import Category from '../Shared/Category/Category';
 import PopularMenu from '../Shared/PopularMenu/PopularMenu';
 import Featured from '../Shared/Featured/Featured';
+import Testimonials from '../Shared/Testimonials/Testimonials';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+        <title>Bistro | HOME</title>
+      </Helmet>
             <Banner></Banner>
             <Category></Category>
             <PopularMenu></PopularMenu>
             <Featured></Featured>
+            <Testimonials></Testimonials>
         </div>
     );
 };
