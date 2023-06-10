@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItemCard from '../../Shared/PopularMenu/MenuItemCard';
 import Cover from '../Cover/Cover';
+import { Link } from 'react-router-dom';
 
 const MenuCategory = ({items,title,coverImg}) => {
     return (
@@ -19,6 +20,10 @@ const MenuCategory = ({items,title,coverImg}) => {
                     ></MenuItemCard>)
                 }
             </div>
+            <Link to={`/order/${title}`}>
+            <button className='btn btn-outline border-0 border-b-4'>Order now</button>
+            </Link>
+            
         </div>
     );
 };
