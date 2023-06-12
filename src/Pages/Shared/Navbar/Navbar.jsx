@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { authContext } from "../../../Providers/AuthProviders";
+import { FaBeer, FaShoppingCart } from 'react-icons/fa';
+import useCart from "../../../Hooks/useCart";
+// import useCart from "../../../Hooks/useCart";
 const Navbar = () => {
-    const navOption = <>
-    <li><Link to='/'>Home</Link></li>
-    <li><Link to='/menu'>Menu</Link></li>
-    <li><Link to='/order/salad'>Order Food</Link></li>
-    <li><Link to='/login'>Login</Link></li>
+  const { user, logOut } = useContext(authContext);
+  const [cart]=useCart();
+  console.log(cart);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .then((error) => {
+        console.log(error);
+      });
+  };
+
+
+  
+
+  const navOption = (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/menu">Menu</Link>
+      </li>
+      <li>
+        <Link to="/order/salad">Order Food</Link>
+      </li>
+      <li>
+        <Link to='/dashboard/myCart'>
+          <button className="btn gap-2">
+          <FaShoppingCart/>
+            <div className="badge badge-secondary">+{cart?.length || 0}</div>
+          </button>
+        </Link>
+      </li>
     </>
+  );
   return (
     <>
       <div className="navbar max-w-screen-xl  fixed z-10 bg-opacity-30 bg-black text-white">
@@ -33,19 +66,31 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-white text-black rounded-box w-52"
             >
-                {navOption}
-              
+              {navOption}
             </ul>
           </div>
           <a className="btn btn-ghost normal-case text-xl">Bistro</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {navOption}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{navOption}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {user ? (
+            <>
+              <button
+                onClick={handleLogout}
+                className="btn btn-info text-white"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link className="btn btn-accent text-white" to="/login">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>
